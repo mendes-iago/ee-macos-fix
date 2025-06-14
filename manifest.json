@@ -6,7 +6,7 @@
     "content_scripts": [
         {
             "matches": ["https://code.earthengine.google.com/*"],
-            "js": ["content-scripts.js"],
+            "js": ["content-script.js"],
             "run_at": "document_idle"
         }
     ],
