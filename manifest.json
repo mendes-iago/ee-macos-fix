@@ -2,18 +2,20 @@
     "manifest_version": 3,
     "name": "Earth Engine macOS Fix",
     "version": "1.0",
-    "description": "Fixes keyboard accentuation and shortcut issues on Google Earth Engine for macOS.",
+    "description": "Custom styles and keybindings for the Earth Engine code editor.",
     "content_scripts": [
         {
-            "matches": ["https://code.earthengine.google.com/*"],
-            "js": ["content-script.js"],
-            "run_at": "document_idle"
-        }
-    ],
-    "web_accessible_resources": [
-        {
-            "resources": ["page-script.js"],
-            "matches": ["https://code.earthengine.google.com/*"]
+            "matches": [
+                "https://code.earthengine.google.com/*"
+            ],
+            "js": [
+                "content.js"
+            ],
+            "css": [
+                "editor-styles.css"
+            ],
+            "run_at": "document_idle",
+            "world": "MAIN"
         }
     ]
 }
