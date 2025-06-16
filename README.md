@@ -1,2 +1,2 @@
 # ee-macos-fix
-Fixes keyboard accentuation and shortcut issues on Google Earth Engine for macOS.
+Fixes keybindings and applies custom styles to the EE Code Editor on macOS.

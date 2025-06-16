@@ -1,8 +1,8 @@
 {
     "manifest_version": 3,
-    "name": "Earth Engine macOS Fix",
+    "name": "EE macOS Fix",
     "version": "1.0",
-    "description": "Custom styles and keybindings for the Earth Engine code editor.",
+    "description": "Fixes keybindings and applies custom styles to the EE Code Editor on macOS.",
     "content_scripts": [
         {
             "matches": [
@@ -10,6 +10,9 @@
             ],
             "js": [
                 "content.js"
+            ],
+            "css": [
+                "styles.css"
             ],
             "run_at": "document_idle",
             "world": "MAIN"
