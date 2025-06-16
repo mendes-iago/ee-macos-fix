@@ -11,9 +11,6 @@
             "js": [
                 "content.js"
             ],
-            "css": [
-                "editor-styles.css"
-            ],
             "run_at": "document_idle",
             "world": "MAIN"
         }

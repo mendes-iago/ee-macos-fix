@@ -30,10 +30,45 @@ const CUSTOM_COMMANDS = [
     },
 ];
 
+/**
+ * Modifica os atalhos do teclado dos comandos existentes no editor Ace.
+ * Esta é a abordagem mais confiável para o GEE, pois ele pré-registra seus próprios comandos.
+ * @param {object} editor A instância do editor Ace.
+ */
+function applyCustomKeybindings(editor) {
+    try {
+        const commands = editor.commands.commands;
+
+        // Modifica o atalho para o comando de sugestão de código existente.
+        if (commands.Suggestion) {
+            commands.Suggestion.bindKey.mac = "Shift-Tab";
+            console.log("Keybinding for 'Suggestion' remapped to Shift-Tab");
+        } else {
+            console.warn("'Suggestion' command not found. Cannot remap key.");
+        }
+
+        // Garante que o atalho para salvar está configurado corretamente.
+        if (commands.Save) {
+            commands.Save.bindKey.mac = "Cmd-S";
+            console.log("Keybinding for 'Save' confirmed for Cmd-S.");
+        } else {
+            console.warn("'Save' command not found. Cannot remap key.");
+        }
+
+        // Esta linha é crucial. Ela força o editor a recarregar o mapa de comandos.
+        // Sem ela, as alterações nos atalhos não são aplicadas.
+        editor.commands.addCommands(commands);
+    } catch (error) {
+        console.error("An error occurred while applying keybindings.", error);
+    }
+}
+
 function initializeEditorEnhancements() {
     const CODE_EDITOR = ".ace_editor";
     let attemptCount = 0;
-    const maxAttempts = 20;
+    const maxAttempts = 20; // Limite de 10 segundos.
+
+    console.log("Searching for Ace editor instance...");
 
     const intervalId = setInterval(() => {
         const editorElement = document.querySelector(CODE_EDITOR);
@@ -45,13 +80,13 @@ function initializeEditorEnhancements() {
 
             console.log("Ace instance found. Applying enhancements...");
 
-            // Aplica as opções de configuração.
+            // Aplica as opções de configuração visual.
             editor.setOptions(EDITOR_OPTIONS);
 
             // Adiciona os comandos personalizados.
-            CUSTOM_COMMANDS.forEach(command => editor.commands.addCommand(command));
-            console.log("Enhancements applied successfully.");
+            applyCustomKeybindings(editor);
 
+            console.log("Enhancements applied successfully.");
             return;
         }
 
